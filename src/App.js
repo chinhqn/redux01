@@ -3,12 +3,13 @@ import './App.css';
 import Taskform from "./components/Taskform";
 import Control from "./components/Control";
 import Tasklist from "./components/Tasklist";
+import { connect } from 'react-redux';
+import * as actions from './actions/index';
 
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            isDisplayForm : false,
             isTaskUpdate : null,
             filter : {
                 name : '',
@@ -20,34 +21,28 @@ class App extends Component {
         };
     };
 
-    s4() {
-        return Math.floor((1+Math.random()) * 0x10000).toString(20).substring(1);
+    onToogleForm = () => {
+        // if (this.state.isDisplayForm && this.state.isTaskUpdate !== null) {
+        //     this.setState({
+        //         isDisplayForm : true,
+        //         isTaskUpdate: null
+        //     });
+        // } else {
+        //     this.setState({
+        //         isDisplayForm : !this.isDisplayForm,
+        //         isTaskUpdate: null
+        //     });
+        // }
+        this.props.onToogleForm();
     };
 
-    generateID() {
-        return this.s4() + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' + this.s4() + this.s4() + this.s4();
-    };
-
-    chang = () => {
-        if (this.state.isDisplayForm && this.state.isTaskUpdate !== null) {
-            this.setState({
-                isDisplayForm : true,
-                isTaskUpdate: null
-            });
-        } else {
-            this.setState({
-                isDisplayForm : !this.isDisplayForm,
-                isTaskUpdate: null
-            });
-        }
-    };
-
-    onCloseForm = () => {
+    // onCloseForm = () => {
        
-        this.setState({
-            isDisplayForm:false
-        });
-    };
+    //     // this.setState({
+    //     //     isDisplayForm:false
+    //     // });
+    //     this.props.onCloseForm();
+    // };
 
     onShowForm = () => {
         this.setState({
@@ -142,7 +137,8 @@ class App extends Component {
     };
 
     render() {
-        var {isDisplayForm, isTaskUpdate, filter, sortBy, sortValue } = this.state;// var tasks = this.state.tasks
+        var {isDisplayForm} = this.props;
+        var {isTaskUpdate, filter, sortBy, sortValue } = this.state;// var tasks = this.state.tasks
         // if (filter) {
         //     if (filter.name) {
         //         tasks = tasks.filter((task) => {
@@ -175,7 +171,7 @@ class App extends Component {
         //         else return 0;
         //     });
         // }
-        var elmTaskForm = isDisplayForm ?  <Taskform onCloseForm={this.onCloseForm} onSave={this.onSave} task={isTaskUpdate}/> : '';
+        var elmTaskForm = isDisplayForm ?  <Taskform task={isTaskUpdate}/> : '';
         var changColLg = isDisplayForm ? 'col-xs-8 col-sm-8 col-md-8 col-lg-8' : 'col-xs-12 col-sm-12 col-md-12 col-lg-12';
         var changColSm = isDisplayForm ? 'col-xs-4 col-sm-4 col-md-4 col-lg-4' : '';
         return (
@@ -189,7 +185,7 @@ class App extends Component {
                         {elmTaskForm}
                     </div>
                     <div className={changColLg}>
-                        <button type="button" className="btn btn-primary" onClick={this.chang}>
+                        <button type="button" className="btn btn-primary" onClick={this.onToogleForm}>
                             <span className="fa fa-plus  mr-5"></span> Thêm Công Việc
                         </button>
                         <Control onHandleSubmit={this.onHandleSubmit} onSort={this.onSort} sortBy={sortBy} sortValue={sortValue}/>
@@ -210,4 +206,18 @@ class App extends Component {
     }
 }
 
-export default App;
+const mapStateToProps = state => {
+    return {
+        isDisplayForm: state.isDisplayForm
+    };
+};
+
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        onToogleForm: () => {
+            dispatch(actions.toogleForm())
+        }
+    };    
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
