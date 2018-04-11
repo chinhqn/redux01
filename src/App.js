@@ -22,17 +22,6 @@ class App extends Component {
     };
 
     onToogleForm = () => {
-        // if (this.state.isDisplayForm && this.state.isTaskUpdate !== null) {
-        //     this.setState({
-        //         isDisplayForm : true,
-        //         isTaskUpdate: null
-        //     });
-        // } else {
-        //     this.setState({
-        //         isDisplayForm : !this.isDisplayForm,
-        //         isTaskUpdate: null
-        //     });
-        // }
         this.props.onToogleForm();
     };
 
@@ -126,7 +115,7 @@ class App extends Component {
 
     render() {
         var {isDisplayForm} = this.props;
-        var {isTaskUpdate, filter, sortBy, sortValue } = this.state;// var tasks = this.state.tasks
+        var {filter, sortBy, sortValue } = this.state;// var tasks = this.state.tasks
         // if (filter) {
         //     if (filter.name) {
         //         tasks = tasks.filter((task) => {
@@ -159,7 +148,7 @@ class App extends Component {
         //         else return 0;
         //     });
         // }
-        var elmTaskForm = isDisplayForm ?  <Taskform task={isTaskUpdate}/> : '';
+        // var elmTaskForm = isDisplayForm ?  <Taskform task={isTaskUpdate}/> : '';
         var changColLg = isDisplayForm ? 'col-xs-8 col-sm-8 col-md-8 col-lg-8' : 'col-xs-12 col-sm-12 col-md-12 col-lg-12';
         var changColSm = isDisplayForm ? 'col-xs-4 col-sm-4 col-md-4 col-lg-4' : '';
         return (
@@ -170,7 +159,7 @@ class App extends Component {
                 </div>
                 <div className="row">
                     <div className={changColSm}>
-                        {elmTaskForm}
+                        <Taskform />
                     </div>
                     <div className={changColLg}>
                         <button type="button" className="btn btn-primary" onClick={this.onToogleForm}>
