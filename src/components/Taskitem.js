@@ -13,11 +13,14 @@ class Taskitem extends Component {
     };
 
     onUpdate = () => {
-        this.props.onUpdate(this.props.task.id);
+        // this.props.onUpdate(this.props.task.id);
+        this.props.onOpenForm();
+        this.props.onEditTask(this.props.task);
     };
     
     render() {
         var { task, index } = this.props;
+        // console.log(task.status);
         return (
             <tr>
                 <td>{index + 1}</td>
@@ -43,7 +46,9 @@ class Taskitem extends Component {
 }
 
 const mapStateToProps = state => {
-    return {}
+    return {
+        
+    }
 };
 
 const mapDispatchToprops = (dispatch, props) => {
@@ -53,6 +58,12 @@ const mapDispatchToprops = (dispatch, props) => {
         },
         onDeleteTask: (id) => {
             dispatch(actions.deleteTask(id))
+        },
+        onOpenForm: () => {
+            dispatch(actions.opentForm());
+        },
+        onEditTask: (state) => {
+            dispatch(actions.editTask(state));    
         }
     };
 };
