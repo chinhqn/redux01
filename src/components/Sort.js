@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import * as actions from './../actions/index'
+
 class Soft extends Component {
 
     onClick = (sortBy, sortValue) => {
-    
-        this.props.onSort(sortBy, sortValue);
+        var sort = {
+            by: sortBy,
+            value1: sortValue
+        };
+        this.props.onSort(sort);
     };
 
     render() {
-    
         return (
                 <div className="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                     <div className="dropdown">
@@ -18,14 +23,14 @@ class Soft extends Component {
                         </button>
                         <ul className="dropdown-menu" aria-labelledby="dropdownMenu1">
                             <li onClick={ () => this.onClick('name', 1)}>
-                                <a role="button" className={(this.props.sortBy === 'name' && this.props.sortValue === 1) ? 'sort-selected' : ''}>
+                                <a role="button" className={(this.props.sort.by === 'name' && this.props.sort.value1 === 1) ? 'sort-selected' : ''}>
                                     <span className="fa fa-sort-alpha-asc pr-5">
                                         Tên A-Z
                                     </span>
                                 </a>
                             </li>
                             <li onClick={ () => this.onClick('name', -1) }>
-                            <a role="button" className={(this.props.sortBy === 'name' && this.props.sortValue === -1) ? 'sort-selected' : ''}>
+                            <a role="button" className={(this.props.sort.by === 'name' && this.props.sort.value1 === -1) ? 'sort-selected' : ''}>
                                 <span className="fa fa-sort-alpha-desc pr-5">
                                 Tên Z-A
                                 </span>
@@ -33,10 +38,10 @@ class Soft extends Component {
                             </li>
                             <li role="separator" className="divider"></li>
                             <li onClick={ () => this.onClick('status', 1)}>
-                            <a role="button" className={(this.props.sortBy === 'status' && this.props.sortValue === 1) ? 'sort-selected' : ''}>Trang thái kích hoạt</a>
+                            <a role="button" className={(this.props.sort.by === 'status' && this.props.sort.value1 === 1) ? 'sort-selected' : ''}>Trang thái kích hoạt</a>
                             </li>
                             <li onClick={ () => this.onClick('status', -1)}>
-                            <a role="button" className={(this.props.sortBy === 'status' && this.props.sortValue === -1) ? 'sort-selected' : ''}>Trạng thái ẩn</a>
+                            <a role="button" className={(this.props.sort.by === 'status' && this.props.sort.value1 === -1) ? 'sort-selected' : ''}>Trạng thái ẩn</a>
                             </li>
                         </ul>
                     </div>
@@ -45,4 +50,18 @@ class Soft extends Component {
     }
 }
 
-export default Soft;
+const mapStateToProps = (state) => {
+    return {
+        sort: state.sort,
+    }
+}
+
+const mapDispatchToProps = (dispatch, props) => {
+    return {
+        onSort : (sort) => {
+            dispatch(actions.sortTask(sort));
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Soft);
