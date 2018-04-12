@@ -15,9 +15,6 @@ class App extends Component {
                 name : '',
                 status : -1
             },
-            keyWord : '',
-            sortBy : '',
-            sortValue : 1,
         };
     };
 
@@ -165,7 +162,7 @@ class App extends Component {
                         <button type="button" className="btn btn-primary" onClick={this.onToogleForm}>
                             <span className="fa fa-plus  mr-5"></span> Thêm Công Việc
                         </button>
-                        <Control onHandleSubmit={this.onHandleSubmit} onSort={this.onSort} sortBy={sortBy} sortValue={sortValue}/>
+                        <Control onHandleSubmit={this.onHandleSubmit}/>
                         <div className="row mt-15">
                             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <Tasklist
