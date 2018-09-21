@@ -72,3 +72,10 @@ export const sortTask = (sort) => {
         sort
     }
 }
+
+export const login = (login) => {
+    return {
+        type: types.LOGIN,
+        login
+    }
+}

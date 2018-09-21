@@ -18,6 +18,7 @@ class Search extends Component {
             [name] : value,
         })
     };
+    
     onHandleSubmit = (event) => {
         event.preventDefault();
         this.props.onSearch(this.state.keyWord);

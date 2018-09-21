@@ -6,6 +6,7 @@ import itemEditing from './itemEditing';
 import filterTable from './filterTable';
 import search from './search';
 import sort from './sort';
+import login from './login';
 
 
 
@@ -15,7 +16,8 @@ const myReducer = combineReducers({
     itemEditing,
     filterTable,
     search,
-    sort
+    sort,
+    login
 });
  
 export default myReducer;
