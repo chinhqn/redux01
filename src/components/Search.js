@@ -24,7 +24,7 @@ class Search extends Component {
         this.props.onSearch(this.state.keyWord);
         // this.props.onHandleSubmit(this.state.keyWord);
     }
-
+    //test chery-pick-chinh
     render() {
         var { keyWord } = this.state;
         // var {keyWord} = this.props;
